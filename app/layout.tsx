@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
+import { DataProvider } from "@/contexts/DataContext";
 
 import "./globals.css";
 
@@ -22,9 +24,12 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <div className="relative flex min-h-screen flex-col">
-          <div className="flex-1">{children}</div>
-        </div>
+        <DataProvider>
+          <div className="relative flex min-h-screen flex-col">
+            <div className="flex-1">{children}</div>
+            <Toaster />
+          </div>
+        </DataProvider>
       </body>
     </html>
   );

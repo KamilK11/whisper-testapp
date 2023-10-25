@@ -1,7 +1,8 @@
 import { Metadata } from "next";
+
 import FileUpload from "@/components/FileUpload";
+import TranscribeView from "@/components/TranscribeView";
 import { Separator } from "@/components/ui/separator";
-import TimeLine from "@/components/TimeLine";
 
 export const metadata: Metadata = {
   title: "Music App",
@@ -26,9 +27,7 @@ export default function Home() {
             <FileUpload />
           </div>
           <Separator className="my-4" />
-          <div>
-            <TimeLine />
-          </div>
+          <TranscribeView />
         </div>
       </div>
     </>

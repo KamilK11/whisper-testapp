@@ -40,16 +40,6 @@ const FileUpload = () => {
     const audioString = await fileToBase64(selectedFile);
     const generatedUuId = generateUUID();
 
-    setData((prevData) => ({
-      ...prevData,
-      uuid: generatedUuId,
-    }));
-
-    setData((prevData) => ({
-      ...prevData,
-      length: 500,
-    }));
-
     const payload = {
       uu_id: generatedUuId,
       audio_string: audioString,
@@ -58,19 +48,25 @@ const FileUpload = () => {
 
     const response = await uploadFile(payload);
 
-    console.log(response);
     setUploading(false);
 
-    // if (response.status === 200) {
-    //   const result = response.data;
-    //   console.log(result);
-    // } else {
-    //   toast({
-    //     title: "Uploading Error",
-    //     description: "Error happened while uploading",
-    //     action: <ToastAction altText="Goto select">Undo</ToastAction>,
-    //   });
-    // }
+    if (response.status === 200) {
+      setData((prevData) => ({
+        ...prevData,
+        uuid: generatedUuId,
+      }));
+
+      setData((prevData) => ({
+        ...prevData,
+        length: Math.floor(response.data.max_length),
+      }));
+    } else {
+      toast({
+        title: "Uploading Error",
+        description: "Error happened while uploading",
+        action: <ToastAction altText="Goto select">Undo</ToastAction>,
+      });
+    }
   };
 
   return (

@@ -6,6 +6,7 @@ import TextView from "./TextView";
 
 import { useData } from "@/contexts/DataContext";
 import { TranscribeClip } from "@/lib/whisper.actions";
+import { useToast } from "./ui/use-toast";
 
 const TranscribeView = () => {
   const [transcribeProgress, setTranscribeProgress] = useState(0);
@@ -13,6 +14,7 @@ const TranscribeView = () => {
   const [text, setText] = useState("");
 
   const { data } = useData();
+  const { toast } = useToast();
 
   const updateText = (value: number) => {
     setText(textList[value]);
@@ -28,7 +30,7 @@ const TranscribeView = () => {
           uu_id: data.uuid,
           id: position,
         };
-
+        console.log(payload);
         const response = await TranscribeClip(payload);
 
         if (response.data.status == "success") {
@@ -38,8 +40,9 @@ const TranscribeView = () => {
           );
 
           position += response.data.text.length;
+          console.log("postiton", position);
         }
-        if (transcribeProgress == data.length) clearInterval(intervalId);
+        if (position == Math.ceil(data.length / 30)) clearInterval(intervalId);
       } catch (error) {
         console.error("Failed to fetch data:", error);
       }
@@ -47,7 +50,9 @@ const TranscribeView = () => {
 
     if (data.length > 0) {
       fetchData();
-
+      toast({
+        description: "Transcribing now",
+      });
       // Set an interval to fetch the data every 5 seconds.
       intervalId = setInterval(fetchData, 5000);
     }

@@ -48,10 +48,6 @@ const FileUpload = () => {
 
     setUploading(false);
 
-    toast({
-      description: "Successfully Upload",
-    });
-
     if (response.status === 200) {
       setData((prevData) => ({
         ...prevData,
@@ -62,10 +58,6 @@ const FileUpload = () => {
         ...prevData,
         length: Math.floor(response.data.max_length),
       }));
-
-      toast({
-        description: "Transcribing now",
-      });
     } else {
       toast({
         variant: "destructive",

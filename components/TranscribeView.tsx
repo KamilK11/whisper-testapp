@@ -23,6 +23,9 @@ const TranscribeView = () => {
   useEffect(() => {
     let intervalId: string | number | NodeJS.Timeout | undefined;
     let position = 0;
+    setTranscribeProgress(0);
+    setTextList([]);
+    setText("");
 
     const fetchData = async () => {
       try {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ScrollArea } from "./ui/scroll-area";
 import { Button } from "./ui/button";
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const Sidebar = ({ length, transcribeProgress, updateText }: Props) => {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(-1);
   const { toast } = useToast();
 
   const timeLineList = generateTimeline(length);

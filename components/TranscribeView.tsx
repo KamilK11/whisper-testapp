@@ -18,35 +18,35 @@ const TranscribeView = () => {
     setText(textList[value]);
   };
 
-  useEffect(() => {
-    let intervalId: string | number | NodeJS.Timeout | undefined;
+  // useEffect(() => {
+  //   let intervalId: string | number | NodeJS.Timeout | undefined;
 
-    const fetchData = async () => {
-      try {
-        const payload = {
-          uu_id: data.uuid,
-          id: transcribeProgress,
-        };
+  //   const fetchData = async () => {
+  //     try {
+  //       const payload = {
+  //         uu_id: data.uuid,
+  //         id: transcribeProgress,
+  //       };
 
-        const response = await TranscribeClip(payload);
-        // const result = await response.json();
-        console.log(response);
-        // if (result.status === "completed") {
-        //   clearInterval(intervalId);
-        // }
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      }
-    };
+  //       const response = await TranscribeClip(payload);
+  //       // const result = await response.json();
+  //       console.log(response);
+  //       // if (result.status === "completed") {
+  //       //   clearInterval(intervalId);
+  //       // }
+  //     } catch (error) {
+  //       console.error("Failed to fetch data:", error);
+  //     }
+  //   };
 
-    fetchData();
+  //   fetchData();
 
-    // Set an interval to fetch the data every 5 seconds.
-    intervalId = setInterval(fetchData, 5000);
+  //   // Set an interval to fetch the data every 5 seconds.
+  //   intervalId = setInterval(fetchData, 5000);
 
-    // Cleanup the interval on component unmount.
-    return () => clearInterval(intervalId);
-  }, []);
+  //   // Cleanup the interval on component unmount.
+  //   return () => clearInterval(intervalId);
+  // }, []);
 
   return (
     <div className="overflow-hidden rounded-[0.5rem] border bg-background shadow">

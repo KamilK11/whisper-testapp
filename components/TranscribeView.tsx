@@ -20,12 +20,13 @@ const TranscribeView = () => {
 
   useEffect(() => {
     let intervalId: string | number | NodeJS.Timeout | undefined;
+    let position = 0;
 
     const fetchData = async () => {
       try {
         const payload = {
           uu_id: data.uuid,
-          id: transcribeProgress,
+          id: position,
         };
 
         const response = await TranscribeClip(payload);
@@ -36,6 +37,7 @@ const TranscribeView = () => {
           (prevState) => prevState + response.data.text.length,
         );
 
+        position += response.data.text.length;
         if (transcribeProgress == data.length) clearInterval(intervalId);
       } catch (error) {
         console.error("Failed to fetch data:", error);
@@ -50,7 +52,7 @@ const TranscribeView = () => {
     }
     // Cleanup the interval on component unmount.
     return () => clearInterval(intervalId);
-  }, []);
+  }, [data.length]);
 
   return (
     <div className="overflow-hidden rounded-[0.5rem] border bg-background shadow">

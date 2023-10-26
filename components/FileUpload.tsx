@@ -5,7 +5,6 @@ import { Loader2 } from "lucide-react";
 
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { ToastAction } from "./ui/toast";
 import { useToast } from "./ui/use-toast";
 
 import { fileToBase64, generateUUID } from "@/lib/utils";
@@ -28,9 +27,8 @@ const FileUpload = () => {
   const handleFileUpload = async () => {
     if (!selectedFile) {
       toast({
-        title: "No File Selected",
+        variant: "destructive",
         description: "Please select file to upload",
-        action: <ToastAction altText="Goto select">Undo</ToastAction>,
       });
       return;
     }
@@ -62,9 +60,8 @@ const FileUpload = () => {
       }));
     } else {
       toast({
-        title: "Uploading Error",
+        variant: "destructive",
         description: "Error happened while uploading",
-        action: <ToastAction altText="Goto select">Undo</ToastAction>,
       });
     }
   };

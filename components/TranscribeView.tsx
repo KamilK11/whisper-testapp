@@ -31,12 +31,14 @@ const TranscribeView = () => {
 
         const response = await TranscribeClip(payload);
 
-        setTextList((prevState) => [...prevState, ...response.data.text]);
-        setTranscribeProgress(
-          (prevState) => prevState + response.data.text.length,
-        );
+        if (response.data.status == "success") {
+          setTextList((prevState) => [...prevState, ...response.data.text]);
+          setTranscribeProgress(
+            (prevState) => prevState + response.data.text.length,
+          );
 
-        position += response.data.text.length;
+          position += response.data.text.length;
+        }
         if (transcribeProgress == data.length) clearInterval(intervalId);
       } catch (error) {
         console.error("Failed to fetch data:", error);

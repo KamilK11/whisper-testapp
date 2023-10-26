@@ -30,7 +30,6 @@ const TranscribeView = () => {
           uu_id: data.uuid,
           id: position,
         };
-        console.log(payload);
         const response = await TranscribeClip(payload);
 
         if (response.data.status == "success") {
@@ -40,9 +39,13 @@ const TranscribeView = () => {
           );
 
           position += response.data.text.length;
-          console.log("postiton", position);
         }
-        if (position == Math.ceil(data.length / 30)) clearInterval(intervalId);
+        if (position == Math.ceil(data.length / 30)) {
+          clearInterval(intervalId);
+          toast({
+            description: "Transcribing completed",
+          });
+        }
       } catch (error) {
         console.error("Failed to fetch data:", error);
       }

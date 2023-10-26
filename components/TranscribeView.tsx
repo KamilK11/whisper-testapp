@@ -30,7 +30,6 @@ const TranscribeView = () => {
         };
 
         const response = await TranscribeClip(payload);
-        console.log(response);
 
         setTextList((prevState) => [...prevState, ...response.data.text]);
         setTranscribeProgress(

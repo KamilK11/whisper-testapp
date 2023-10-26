@@ -22,6 +22,9 @@ const Sidebar = ({ length, transcribeProgress, updateText }: Props) => {
 
   const timeLineList = generateTimeline(length);
 
+  console.log(transcribeProgress);
+  console.log(Math.floor((transcribeProgress * 100) / length));
+
   const handleClick = (index: number) => {
     if (index >= transcribeProgress) {
       toast({

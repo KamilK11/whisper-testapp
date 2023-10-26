@@ -12,7 +12,7 @@ const TextView = ({ text }: Props) => {
           {text == "" ? (
             <TextViewEmptyPlaceholder />
           ) : (
-            <div className="p-5 h-[450px]">text</div>
+            <div className="p-5 h-[450px]">{text}</div>
           )}
         </div>
       </div>

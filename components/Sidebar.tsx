@@ -1,12 +1,14 @@
 "use client";
 
+import { useState } from "react";
+
 import { ScrollArea } from "./ui/scroll-area";
 import { Button } from "./ui/button";
 import { CheckCircledIcon, CircleIcon } from "@radix-ui/react-icons";
 
 import { generateTimeline } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
-import { useState } from "react";
+import { useToast } from "./ui/use-toast";
 
 interface Props {
   length: number;
@@ -16,12 +18,20 @@ interface Props {
 
 const Sidebar = ({ length, transcribeProgress, updateText }: Props) => {
   const [active, setActive] = useState(0);
+  const { toast } = useToast();
 
   const timeLineList = generateTimeline(length);
 
   const handleClick = (index: number) => {
-    if (index) setActive(index);
-    updateText(index);
+    if (index >= transcribeProgress) {
+      toast({
+        variant: "destructive",
+        description: "The part isn't transcribed yet",
+      });
+    } else {
+      setActive(index);
+      updateText(index);
+    }
   };
 
   return (
@@ -43,7 +53,11 @@ const Sidebar = ({ length, transcribeProgress, updateText }: Props) => {
                   onClick={() => handleClick(i)}
                 >
                   {timeLine.label}
-                  {timeLine.status ? <CheckCircledIcon /> : <CircleIcon />}
+                  {i < transcribeProgress ? (
+                    <CheckCircledIcon />
+                  ) : (
+                    <CircleIcon />
+                  )}
                 </Button>
               ))}
             </div>

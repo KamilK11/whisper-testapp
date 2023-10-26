@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import TextViewEmptyPlaceholder from "./textview-empty-placeholder";
 
 interface Props {
@@ -12,7 +9,7 @@ const TextView = ({ text }: Props) => {
     <div className="cols-span-3 lg:col-span-4 lg:border-l">
       <div className="space-y-4 p-10">
         <div className="flex h-[450px] shrink-0 items-center justify-center rounded-md border border-dashed">
-          <TextViewEmptyPlaceholder />
+          {text == "" ? <TextViewEmptyPlaceholder /> : text}
         </div>
       </div>
     </div>

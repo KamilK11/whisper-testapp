@@ -9,7 +9,7 @@ import { TranscribeClip } from "@/lib/whisper.actions";
 
 const TranscribeView = () => {
   const [transcribeProgress, setTranscribeProgress] = useState(0);
-  const [textList, setTextList] = useState([]);
+  const [textList, setTextList] = useState<string[]>([]);
   const [text, setText] = useState("");
 
   const { data } = useData();
@@ -29,11 +29,14 @@ const TranscribeView = () => {
         };
 
         const response = await TranscribeClip(payload);
-        // const result = await response.json();
         console.log(response);
-        // if (result.status === "completed") {
-        //   clearInterval(intervalId);
-        // }
+
+        setTextList((prevState) => [...prevState, ...response.data.text]);
+        setTranscribeProgress(
+          (prevState) => prevState + response.data.text.length,
+        );
+
+        if (transcribeProgress == data.length) clearInterval(intervalId);
       } catch (error) {
         console.error("Failed to fetch data:", error);
       }
